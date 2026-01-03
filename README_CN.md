@@ -1,60 +1,85 @@
 # 数据清洗工具 (Data Cleaning Tool)
 
-一个用于清洗原始数据集的Claude Code专业技能工具。
+**几秒钟内将混乱数据转化为可直接分析的数据集。**
+
+一款强大的 Claude Code 技能工具，自动化处理数据清洗——处理缺失值、重复数据、异常值和格式不一致问题，配置简单。
+
+![GitHub stars](https://img.shields.io/github/stars/guanyugangstar/cleaning-data)
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
+
+## 为什么选择这个工具？
+
+数据科学家**60-80%** 的时间都花在数据准备上。这个工具把这个时间缩短到几分钟。
+
+| 清洗前 | 清洗后 |
+|--------|--------|
+| 手动Excel清理 | 一键自动化 |
+| 格式不一致 | 标准输出 |
+| 重复性工作耗时 | 可复用配置 |
 
 ## 功能特性
 
-- **缺失值处理** - 支持删除、均值/中位数/众数填充、固定值填充
-- **重复数据处理** - 检测并去除重复记录
-- **异常值检测** - 支持IQR、Z-score、MAD、范围检测
-- **格式标准化** - 日期格式、文本修剪、大小写转换
-- **数据转换** - 类别编码、分箱、计算新列
+- **缺失值处理** — 删除、填充（均值/中位数/众数）或自定义值
+- **重复数据** — 智能检测与去除
+- **异常值检测** — IQR、Z-score、MAD 或自定义范围
+- **格式标准化** — 日期、文本修剪、大小写转换
+- **数据转换** — 编码、分箱、计算新列
 
 ## 快速开始
 
 ```bash
-# 安装依赖
 pip install pandas numpy scipy scikit-learn pyyaml openpyxl
 
-# 使用默认配置清洗数据
-python scripts/cleaning_data.py -i data/raw_data.csv
+# 一键清洗数据
+python scripts/cleaning_data.py -i raw_data.csv
 
-# 使用自定义配置
-python scripts/cleaning_data.py -c configs/custom.yaml -i data/raw_data.csv
+# 或使用自定义规则
+python scripts/cleaning_data.py -c configs/custom.yaml -i raw_data.csv
+```
+
+## 适用场景
+
+- **数据分析** — 为 pandas、Excel 或 BI 工具准备数据
+- **机器学习** — 清洗训练数据集
+- **报表制作** — 标准化多来源数据
+- **ETL 管道** — 自动化数据质量检查
+
+## 工作原理
+
+```
+raw_data.csv → [清洗管道] → cleaned_data.csv
+                   ↓
+            EDA报告 + 数据血缘
 ```
 
 ## 项目结构
 
 ```
-├── scripts/           # 清洗脚本
-├── configs/           # 配置文件
-├── data/             # 数据文件
-├── reference/        # 提示模板
-├── CLAUDE.md         # Claude Code指导
-└── SKILL.md          # 技能说明
+├── scripts/           # 核心清洗引擎
+├── configs/           # 可复用配置
+├── data/              # 输入输出文件
+├── reference/         # 提示模板
+└── README.md          # English docs
 ```
 
-## 配置说明
-
-在 `configs/custom.yaml` 中配置清洗规则：
+## 配置示例
 
 ```yaml
 missing_values:
   strategy: mean
-  columns: [数值列名]
+  columns: [price, quantity]
 
 outliers:
   method: iqr
   ranges:
-    列名: [最小值, 最大值]
+    age: [0, 120]
+    score: [0, 100]
 ```
 
-## 使用示例
+## 贡献
 
-1. 准备原始数据文件（CSV格式，UTF-8-SIG编码）
-2. 根据需要编辑 `configs/custom.yaml`
-3. 运行清洗脚本：
-   ```bash
-   python scripts/cleaning_data.py -c configs/custom.yaml -i your_data.csv
-   ```
-4. 清洗后的数据保存在 `data/cleaned_data.csv`
+发现 bug 或有新功能建议？提个 issue 或 PR！
+
+---
+
+**❤️ 为数据从业者打造**
