@@ -1,0 +1,113 @@
+办理时长:
+- timestamp: '2026-01-03T22:37:29.214646'
+  operation: fill_missing
+  details:
+    filled_count: !!python/object/apply:numpy._core.multiarray.scalar
+    - &id001 !!python/object/apply:numpy.dtype
+      args:
+      - i8
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - -1
+      - -1
+      - 0
+    - !!binary |
+      DQEAAAAAAAA=
+    strategy: median
+    fill_value: !!python/object/apply:numpy._core.multiarray.scalar
+    - &id002 !!python/object/apply:numpy.dtype
+      args:
+      - f8
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - -1
+      - -1
+      - 0
+    - !!binary |
+      mpmZmZmZE0A=
+- timestamp: '2026-01-03T22:37:29.230747'
+  operation: fill_missing
+  details:
+    filled_count: !!python/object/apply:numpy._core.multiarray.scalar
+    - *id001
+    - !!binary |
+      NQAAAAAAAAA=
+    strategy: median
+    fill_value: !!python/object/apply:numpy._core.multiarray.scalar
+    - *id002
+    - !!binary |
+      mpmZmZmZE0A=
+满意度:
+- timestamp: '2026-01-03T22:37:29.215149'
+  operation: fill_missing
+  details:
+    filled_count: !!python/object/apply:numpy._core.multiarray.scalar
+    - *id001
+    - !!binary |
+      pAEAAAAAAAA=
+    strategy: median
+    fill_value: !!python/object/apply:numpy._core.multiarray.scalar
+    - *id002
+    - !!binary |
+      ZmZmZmZmEkA=
+- timestamp: '2026-01-03T22:37:29.231210'
+  operation: fill_missing
+  details:
+    filled_count: !!python/object/apply:numpy._core.multiarray.scalar
+    - *id001
+    - !!binary |
+      CQAAAAAAAAA=
+    strategy: median
+    fill_value: !!python/object/apply:numpy._core.multiarray.scalar
+    - *id002
+    - !!binary |
+      ZmZmZmZmEkA=
+__global__:
+- timestamp: '2026-01-03T22:37:29.218055'
+  operation: remove_duplicates
+  details:
+    rows_before: 9111
+    rows_after: 9049
+    rows_removed: 62
+    subset: all_columns
+    action: drop
+- timestamp: '2026-01-03T22:37:29.226951'
+  operation: handle_outliers
+  details:
+    method: iqr
+    treatment: nan
+    rows_before: 9049
+    rows_after: 9049
+    total_masked: !!python/object/apply:numpy._core.multiarray.scalar
+    - *id001
+    - !!binary |
+      PgAAAAAAAAA=
+    total_removed: 0
+    numeric_columns_processed:
+    - 材料数量
+    - 办理时长
+    - 满意度
+办理时间:
+- timestamp: '2026-01-03T22:37:29.235547'
+  operation: convert_to_datetime
+  details: {}
+部门:
+- timestamp: '2026-01-03T22:37:29.237927'
+  operation: trim_whitespace
+  details: {}
+是否网上办:
+- timestamp: '2026-01-03T22:37:29.240132'
+  operation: trim_whitespace
+  details: {}
