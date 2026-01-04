@@ -191,7 +191,7 @@ outliers:
 
 format_standardization:
 
-  date_columns, trim_columns, lowercase_columns, title_columns, drop_columns
+  date_columns, trim_columns, lowercase_columns, title_columns, drop_columns, value_correction
 
 transformations:
 

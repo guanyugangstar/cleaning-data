@@ -33,6 +33,9 @@ import pandas as pd
 import numpy as np
 from scipy import stats
 
+# 导入字段值纠正模块
+from scripts.field_correction import correct_field_values, fuzzy_match
+
 # 控制台编码
 sys.stdout.reconfigure(encoding='utf-8')
 
@@ -361,6 +364,7 @@ class ConfigGenerator:
                 'title_columns': fmt.get('title_columns', []),
                 'numeric_columns': info['numeric_columns'] if auto_detect_numeric else fmt.get('numeric_columns', []),
                 'drop_columns': fmt.get('drop_columns', []),
+                'value_correction': fmt.get('value_correction', {}),
             },
             'transformations': {
                 'categorical_encoding': trans.get('categorical_encoding', {}),
@@ -1129,6 +1133,20 @@ class DataCleaner:
                 self.df = self.df.drop(columns=[col])
                 self._log(f"  {col}: 删除列")
                 self.lineage.record(col, 'drop_column', {'reason': 'format_standardization'})
+
+        # 字段值纠正 - 模糊匹配
+        value_corrections = fmt_config.get('value_correction', {})
+        if value_corrections:
+            self.df, correction_stats = correct_field_values(self.df, value_corrections)
+            for col, stats_info in correction_stats.items():
+                self._log(f"  {col}: 纠正 {stats_info['corrected_count']} 个值")
+                # 记录血缘
+                for detail in stats_info['details'][:5]:
+                    self.lineage.record(col, 'value_correction', {
+                        'original': detail['original'],
+                        'corrected': detail['corrected'],
+                        'score': detail['score']
+                    })
 
         return self
 

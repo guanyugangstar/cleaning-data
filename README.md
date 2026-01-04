@@ -23,6 +23,7 @@ Data scientists spend **60-80%** of their time on data preparation. This tool cu
 - **Duplicates** — Smart detection and removal
 - **Outliers** — IQR, Z-score, MAD, or custom ranges
 - **Format Standardization** — Dates, text trimming, case conversion
+- **Value Correction** — Fuzzy matching to fix typos 
 - **Data Transformation** — Encoding, binning, computed columns
 
 ## Quick Start
@@ -74,6 +75,12 @@ outliers:
   ranges:
     age: [0, 120]
     score: [0, 100]
+
+format_standardization:
+  value_correction:
+    department:
+      allowed_values: [HR, Sales, Engineering, Marketing]
+      threshold: 0.6
 ```
 
 ## Contributing
