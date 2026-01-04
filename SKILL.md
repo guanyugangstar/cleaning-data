@@ -246,3 +246,16 @@ format_standardization:
 | 范围设置不合理 | 未理解列语义 | 让LLM根据列名的业务含义设置 |
 | 分类编码混乱 | 枚举值顺序随意 | 让LLM保持语义一致的映射顺序 |
 | 字段值纠正遗漏 | 分类列存在输入变体未检测 | 检查EDA报告中的分类频率，配置value_correction |
+| value_correction格式错误 | 不了解函数期望的配置格式 | 必须使用 `allowed_values` 列表格式 `{允许值: [A, B, C]}`，而非精确映射 `{A: 正确值}` |
+
+### 8.1 value_correction 正确格式
+
+```yaml
+# 正确
+value_correction:
+  部门:
+    allowed_values: [民政局, 人社局, 市场监管局, 住建局, 税务局]
+    threshold: 0.6
+```
+
+**原因：** 函数使用模糊匹配自动纠正输入变体，依赖 `allowed_values` 列表找到最相似标准值。

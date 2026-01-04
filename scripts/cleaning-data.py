@@ -485,6 +485,11 @@ class DataCleaner:
             return path
         return str(SCRIPT_DIR / path)
 
+    def _regenerate_eda(self):
+        """重新生成EDA报告（反映字段纠正后的状态）"""
+        self._log(f"[更新] 重新生成清洗后的EDA报告")
+        self.inspect_data()
+
     # ============================================================
     # 1. 加载数据
     # ============================================================
@@ -1297,6 +1302,10 @@ class DataCleaner:
             self.handle_missing_values()
             # 6. 格式标准化
             self.standardize_format()
+            # 6.5 如存在value_correction，重新生成EDA报告
+            value_correction = self.config.get('format_standardization', {}).get('value_correction', {})
+            if value_correction:
+                self._regenerate_eda()
             # 7. 数据转换
             self.transform_data()
             # 8. 保存结果
